@@ -2,6 +2,7 @@ import React from 'react';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Box } from '@mui/material';
 import { Home, ContactMail } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   const theme = useTheme();  // Acessa o tema
@@ -28,18 +29,18 @@ const Sidebar = () => {
     >
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
-        <List>
-          <ListItem button>
+        <List sx={{ padding: 0 }}>
+          <ListItem button component={Link} to="/home">
             <ListItemIcon sx={{ color: theme.palette.drawer.color }}>
               <Home />
             </ListItemIcon>
-            <ListItemText primary="Home" />
+            <ListItemText primary="Home" sx={{ color: theme.palette.drawer.color }} />
           </ListItem>
-          <ListItem button>
+          <ListItem button component={Link} to="/contact">
             <ListItemIcon sx={{ color: theme.palette.drawer.color }}>
               <ContactMail />
             </ListItemIcon>
-            <ListItemText primary="Contato" />
+            <ListItemText primary="Contato" sx={{ color: theme.palette.drawer.color }}  />
           </ListItem>
         </List>
       </Box>
