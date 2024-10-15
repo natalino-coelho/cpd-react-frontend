@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
-import { List, SupportAgent } from "@mui/icons-material";
+import { Add, List } from "@mui/icons-material";
 
-const GTI = () => {
+const Calls = () => {
   return (
     <Box sx={{ maxWidth: '90vw', mx: "auto", p: 2 }}>
-      <div>Gestão de TI!</div>
+      <div>Chamados</div>
 
       <Box sx={{
           display: 'grid',
@@ -17,24 +17,22 @@ const GTI = () => {
         }}>
         <Button
           variant="outlined"
-          startIcon={<List />}
-          href="/gti/registers"
+          startIcon={<Add />}
           sx={{ height: '60px', fontSize: '1rem', flexGrow: 1 }}
         >
-          Cadastros
+          Novo Chamado
         </Button>
 
         <Button
           variant="outlined"
-          startIcon={<SupportAgent />}
-          href="/gti/calls"
+          startIcon={<List />}
           sx={{ height: '60px', fontSize: '1rem', flexGrow: 1 }}
         >
-          Chamados
+          Em Aberto
         </Button>
       </Box>
     </Box >
   );
 };
 
-export default GTI;
+export default Calls;

@@ -16,8 +16,8 @@ const Contact = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 720, mx: "auto", p: 2 }}>
-      <Typography variant="h4" gutterBottom>
+    <Box sx={{ maxWidth: 720, mx: "auto", paddingTop: 4 }}>
+      <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
         Formulário para Contato
       </Typography>
 
@@ -74,7 +74,7 @@ const Contact = () => {
       </form>
 
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h6" sx={{ paddingBottom: "10px"}}>Outros Contatos</Typography>
+        <Typography variant="h6" sx={{ paddingBottom: "10px", textAlign: "center" }}>Outros Contatos</Typography>
 
         <Typography variant="body1" paragraph>
           <strong>Endereço:</strong> Rua São Francisco, nº 570, Centro, Goiatuba-GO, CEP 75.600-000
