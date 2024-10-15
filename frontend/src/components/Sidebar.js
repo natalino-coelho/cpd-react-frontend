@@ -1,48 +1,88 @@
-import React from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Box } from '@mui/material';
-import { Home, ContactMail } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import React from "react";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Box,
+} from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { sidebarLinks, profileLink } from "./sidebarLinks"; // Importa os links da sidebar
 
-const Sidebar = () => {
-  const theme = useTheme();  // Acessa o tema
-  
-  // Verifica se o tema e a paleta drawer foram definidos
-  if (!theme.palette.drawer) {
-    console.error('Paleta drawer não definida no tema');
-    return null; // Impede que o componente quebre enquanto você resolve o problema
-  }
-
+const Sidebar = ({ isCollapsed }) => {
   return (
     <Drawer
       variant="permanent"
       sx={{
-        width: 240,
+        width: isCollapsed ? "60px" : "240px", // Ajusta a largura conforme o estado
         flexShrink: 0,
+        transition: "width 0.3s ease-in-out", // Transição suave ao colapsar/expandir
         [`& .MuiDrawer-paper`]: {
-          width: 240,
-          boxSizing: 'border-box',
-          backgroundColor: theme.palette.drawer.background,  // Acessa a cor de fundo do drawer
-          color: theme.palette.drawer.color,  // Acessa a cor do texto/ícones do drawer
+          width: isCollapsed ? "60px" : "240px",
+          transition: "width 0.3s ease-in-out",
+          boxSizing: "border-box",
+          backgroundColor: "#002855",
+          color: "#fff",
+          overflowX: "hidden",
+          overflowY: isCollapsed ? "hidden" : "auto",
         },
       }}
     >
       <Toolbar />
-      <Box sx={{ overflow: 'auto' }}>
-        <List sx={{ padding: 0 }}>
-          <ListItem button component={Link} to="/home">
-            <ListItemIcon sx={{ color: theme.palette.drawer.color }}>
-              <Home />
-            </ListItemIcon>
-            <ListItemText primary="Home" sx={{ color: theme.palette.drawer.color }} />
-          </ListItem>
-          <ListItem button component={Link} to="/contact">
-            <ListItemIcon sx={{ color: theme.palette.drawer.color }}>
-              <ContactMail />
-            </ListItemIcon>
-            <ListItemText primary="Contato" sx={{ color: theme.palette.drawer.color }}  />
-          </ListItem>
-        </List>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          justifyContent: "space-between",
+          overflowX: "hidden",
+          overflowY: isCollapsed ? "hidden" : "auto",
+        }}
+      >
+        <Box>
+          <List sx={{ padding: 0 }}>
+            {sidebarLinks.map((link, index) => (
+              <ListItem
+                button
+                component={NavLink}
+                to={link.path}
+                key={index}
+                sx={{
+                  color: "#fff",
+                  "&.active": { backgroundColor: "#1e88e5", color: "#fff" }, // Destaca o link ativo
+                  "&:hover": { backgroundColor: "#1e88e5" }, // Efeito de hover
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: "40px", color: "#fff" }}>
+                  {link.icon}
+                </ListItemIcon>
+                {!isCollapsed && <ListItemText primary={link.text} />}
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+
+        <Box sx={{ paddingBottom: 2 }}>
+          <List>
+            <ListItem
+              button
+              component={NavLink}
+              to={profileLink.path}
+              sx={{
+                color: "#fff",
+                "&.active": { backgroundColor: "#1e88e5", color: "#fff" }, // Destaca o link ativo
+                "&:hover": { backgroundColor: "#1e88e5" }, // Efeito de hover
+              }}
+            >
+              <ListItemIcon sx={{ minWidth: "40px", color: "#fff" }}>
+                {profileLink.icon}
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary={profileLink.text} />}
+            </ListItem>
+          </List>
+        </Box>
       </Box>
     </Drawer>
   );

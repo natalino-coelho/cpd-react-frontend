@@ -1,12 +1,12 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-const Home = () => {
+const GTI = () => {
   return (
     <Box sx={{ maxWidth: '90vw', mx: "auto", p: 2 }}>
-      <div>Bem-vindo à página Home!</div>
+      <div>Gestão de TI!</div>
     </Box>
   );
 };
 
-export default Home;
+export default GTI;
