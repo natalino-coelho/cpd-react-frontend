@@ -8,9 +8,12 @@ import Suppliers from "./pages/GTI/Registers/Suppliers/Suppliers";
 import Products from "./pages/GTI/Registers/Products/Products";
 import Services from "./pages/GTI/Registers/Services/Services";
 import Registers from "./pages/GTI/Registers/Registers";
-import Persons from "./pages/GTI/Registers/Persons/Persons";
 import Documents from "./pages/GTI/Registers/Documents/Documents";
 import Calls from "./pages/GTI/Calls/Calls";
+import Adm from "./pages/Adm/Adm";
+import Persons from "./pages/Adm/Persons/Persons";
+import Users from "./pages/Adm/Users/Users";
+import Permissions from "./pages/Adm/Permissions/Permissions";
 
 const appRoutes = [
   {
@@ -64,15 +67,6 @@ const appRoutes = [
     title: 'CPD - Cadastros'
   },
   {
-    path: "/gti/registers/persons",
-    element: (
-      <DashboardLayout>
-        <Persons />
-      </DashboardLayout>
-    ),
-    title: 'CPD - Pessoas'
-  },
-  {
     path: "/gti/registers/suppliers",
     element: (
       <DashboardLayout>
@@ -116,6 +110,42 @@ const appRoutes = [
       </DashboardLayout>
     ),
     title: 'CPD - Chamados'
+  },
+  {
+    path: "/adm",
+    element: (
+      <DashboardLayout>
+        <Adm />
+      </DashboardLayout>
+    ),
+    title: 'CPD - Admin'
+  },
+  {
+    path: "/adm/persons",
+    element: (
+      <DashboardLayout>
+        <Persons />
+      </DashboardLayout>
+    ),
+    title: 'CPD - Pessoas'
+  },
+  {
+    path: "/adm/users",
+    element: (
+      <DashboardLayout>
+        <Users />
+      </DashboardLayout>
+    ),
+    title: 'CPD - Usuários'
+  },
+  {
+    path: "/adm/permissions",
+    element: (
+      <DashboardLayout>
+        <Permissions />
+      </DashboardLayout>
+    ),
+    title: 'CPD - Permissões'
   },
   // Você pode adicionar mais rotas aqui conforme necessário
 ];

@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
-import { List, SupportAgent } from "@mui/icons-material";
+import { Group, ManageAccounts, SupervisedUserCircle } from "@mui/icons-material";
 
-const GTI = () => {
+const Adm = () => {
   return (
     <Box sx={{ maxWidth: '90vw', mx: "auto", p: 2 }}>
-      <div>Gestão de TI</div>
+      <div>Gestão do Sistema</div>
 
       <Box sx={{
           display: 'grid',
@@ -15,26 +15,36 @@ const GTI = () => {
           maxWidth: '1080px', // Limita a largura máxima do grid para 720px
           mx: 'auto', // Centraliza o grid horizontalmente
         }}>
+        
         <Button
           variant="outlined"
-          startIcon={<List />}
-          href="/gti/registers"
+          startIcon={<Group />}
+          href="/adm/persons"
           sx={{ height: '60px', fontSize: '1rem', flexGrow: 1 }}
         >
-          Cadastros
+          Pessoas
         </Button>
 
         <Button
           variant="outlined"
-          startIcon={<SupportAgent />}
-          href="/gti/calls"
+          startIcon={<SupervisedUserCircle />}
+          href="/adm/users"
           sx={{ height: '60px', fontSize: '1rem', flexGrow: 1 }}
         >
-          Chamados
+          Usuários
+        </Button>
+
+        <Button
+          variant="outlined"
+          startIcon={<ManageAccounts />}
+          href="/adm/permissions"
+          sx={{ height: '60px', fontSize: '1rem', flexGrow: 1 }}
+        >
+          Permissões
         </Button>
       </Box>
     </Box >
   );
 };
 
-export default GTI;
+export default Adm;

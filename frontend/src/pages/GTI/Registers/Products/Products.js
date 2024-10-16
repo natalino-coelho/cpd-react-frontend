@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 const Products = () => {
   return (
     <Box sx={{ maxWidth: '90vw', mx: "auto", p: 2 }}>
-      <div>Produtos</div>
+      <div>Gestão de Produtos</div>
     </Box>
   );
 };

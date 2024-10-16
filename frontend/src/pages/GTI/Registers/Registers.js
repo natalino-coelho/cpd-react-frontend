@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
-import { Store, Inventory, Work, TextSnippet, People } from "@mui/icons-material";
+import { Store, Inventory, Work, TextSnippet } from "@mui/icons-material";
 
 const Registers = () => {
     return (
         <Box sx={{ maxWidth: '90vw', mx: "auto", p: 2 }}>
-            <div>Cadastros</div>
+            <div>Gestão de Registros</div>
 
             <Box sx={{
                 display: 'grid',
@@ -15,15 +15,6 @@ const Registers = () => {
                 maxWidth: '1080px', // Limita a largura máxima do grid para 720px
                 mx: 'auto', // Centraliza o grid horizontalmente
             }}>
-
-                <Button
-                    variant="outlined"
-                    startIcon={<People />}
-                    href="/gti/registers/persons"
-                    sx={{ height: '60px', fontSize: '1rem', flexGrow: 1 }}
-                >
-                    Pessoas
-                </Button>
 
                 <Button
                     variant="outlined"

@@ -1,10 +1,15 @@
-import { Home, Mail, Devices, Person } from '@mui/icons-material';
+import { Home, Mail, Devices, Person, Settings } from '@mui/icons-material';
 
 export const sidebarLinks = [
   {
     text: 'Home',
     path: '/home',
     icon: <Home />,
+  },
+  {
+    text: 'Administração',
+    path: '/adm',
+    icon: <Settings />,
   },
   {
     text: 'TI',

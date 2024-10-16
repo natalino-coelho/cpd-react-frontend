@@ -5,7 +5,7 @@ import { Add, List } from "@mui/icons-material";
 const Calls = () => {
   return (
     <Box sx={{ maxWidth: '90vw', mx: "auto", p: 2 }}>
-      <div>Chamados</div>
+      <div>Gestão de Chamados</div>
 
       <Box sx={{
           display: 'grid',
