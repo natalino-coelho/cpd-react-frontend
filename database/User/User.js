@@ -5,5 +5,6 @@ class User {
     password;
     status;
     expire;
+    create_date;
     user_id;
 }
