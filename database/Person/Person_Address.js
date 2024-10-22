@@ -7,8 +7,8 @@ class PersonAddress {
     city;
     state;
     country;
-    change_date;
     user_i;
+    change_date;
 }
 
 const PersonAddress = `
@@ -21,8 +21,8 @@ const PersonAddress = `
         city varchar(200) NOT NULL,
         state varchar(2) NOT NULL,
         country varchar(100) NOT NULL,
-        change_data date NOT NULL DEFAULT current_timestamp(),
         user_id int(11) NOT NULL,
+        change_data datetime NOT NULL DEFAULT current_timestamp(),
         PRIMARY KEY (id)
     )
 `;

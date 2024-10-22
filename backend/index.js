@@ -8,7 +8,7 @@ const { expressjwt: expressJwt } = require('express-jwt');
 const secretKey = process.env.SECRET_KEY;
 
 //Middleware para proteger as rotas
-const auth = expressJwt({ secret: secretKey, algorithms: ['HS256'] });
+//const auth = expressJwt({ secret: secretKey, algorithms: ['HS256'] });
 
 // Middleware de erro para JWT
 const handleJwtErrors = (err, req, res, next) => {

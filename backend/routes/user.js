@@ -107,10 +107,17 @@ async function userExistsForAnotherUser(user, id) {
 
 //Rota para pesquisar todos os usuários com paginação
 router.get('/user/all/:page', async (req, res) => {
-    const { page, limit = 10 } = req.query; // Definindo valores padrão para página e limite
+    // Definindo valores padrão para página e limite
+    const { page = 1, limit = 10 } = req.query;
+    
     // Convertendo os valores de página e limite para inteiros
     const pageNumber = parseInt(page, 10);
     const limitNumber = parseInt(limit, 10);
+
+    // Verificando se pageNumber ou limitNumber são NaN ou menores que 1
+    if (isNaN(pageNumber) || pageNumber < 1 || isNaN(limitNumber) || limitNumber < 1) {
+        return res.status(400).json({ message: 'Parâmetros de paginação inválidos.' });
+    }
     const offset = (pageNumber - 1) * limitNumber;
     try {
         // Consulta para contar o total de registros
@@ -312,7 +319,7 @@ router.delete('/user/delete/:id', validateNumericId, async (req, res) => {
     const { numericId } = req;
     try {
         // Verificar se há usuários vinculados a esta pessoa
-        const [oldPassResult] = await pool.query('SELECT * FROM old_pass WHERE id = ?', numericId);
+        const [oldPassResult] = await pool.query('SELECT * FROM user_old WHERE id = ?', numericId);
         if (oldPassResult.length > 0) {
             return res.status(404).json({ message: 'Não foi possível excluir! Existem dados vinculados a este cadastro!' });
         }

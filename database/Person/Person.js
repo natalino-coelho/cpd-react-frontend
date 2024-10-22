@@ -4,8 +4,8 @@ class Person {
   cpf;
   birthday;
   mother;
+  user_id;
   create_date;
-  user_i;
 }
 
 const Person = `
@@ -15,8 +15,8 @@ const Person = `
         cpf varchar(11) NOT NULL,
         birthday date NOT NULL,
         mother varchar(255) NOT NULL,
-        create_data date NOT NULL DEFAULT current_timestamp(),
         user_id int(11) NOT NULL,
+        create_data date NOT NULL DEFAULT current_timestamp(),
         PRIMARY KEY (id)
     )
 `;

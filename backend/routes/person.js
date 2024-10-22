@@ -21,7 +21,7 @@ async function cpfExists(cpf) {
 }
 
 //Função para validar campos
-function validateFields({ name, cpf, birthday, mother, email, user_id }) {
+function validateFields({ name, cpf, birthday, mother, user_id }) {
     if (!name) {
         return 'O nome é obrigatório!';
     }
@@ -38,13 +38,6 @@ function validateFields({ name, cpf, birthday, mother, email, user_id }) {
     }
     if (!mother) {
         return 'O nome da mãe é obrigatório!';
-    }
-    if (!email) {
-        return 'O e-mail é obrigatório!';
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        return 'Formato de e-mail inválido!';
     }
     if (user_id === undefined || user_id === null) {
         return 'Id do(a) responsável pelo cadastro é obrigatório!';
@@ -80,10 +73,17 @@ async function cpfExistsForAnotherUser(cpf, id) {
 
 //Rota para pesquisar pessoas com paginação
 router.get('/person/all/:page', async (req, res) => {
-    const { page, limit = 10 } = req.query; // Definindo valores padrão para página e limite
+    // Definindo valores padrão para página e limite
+    const { page = 1, limit = 10 } = req.query;
+    
     // Convertendo os valores de página e limite para inteiros
     const pageNumber = parseInt(page, 10);
     const limitNumber = parseInt(limit, 10);
+
+    // Verificando se pageNumber ou limitNumber são NaN ou menores que 1
+    if (isNaN(pageNumber) || pageNumber < 1 || isNaN(limitNumber) || limitNumber < 1) {
+        return res.status(400).json({ message: 'Parâmetros de paginação inválidos.' });
+    }
     const offset = (pageNumber - 1) * limitNumber; // Calculando o offset para a consulta
     try {
         // Consulta para contar o total de registros
@@ -132,11 +132,11 @@ router.get('/person/:id', validateNumericId, async (req, res) => {
 
 // Rota para cadastrar uma pessoa
 router.post('/person/new', async (req, res) => {
-    const { name, cpf: originalCpf, birthday, mother, email, email_valid, user_id } = req.body;
+    const { name, cpf: originalCpf, birthday, mother, user_id } = req.body;
     // Remover caracteres não numéricos do CPF
     const cpf = originalCpf.replace(/[^\d]/g, '');
     //Chamar função para validar os campos
-    const validationError = validateFields({ name, cpf, birthday, mother, email, user_id });
+    const validationError = validateFields({ name, cpf, birthday, mother, user_id });
     if (validationError) {
         return res.status(400).json({ message: validationError });
     }
@@ -153,7 +153,7 @@ router.post('/person/new', async (req, res) => {
         }
         // Consulta SQL com prepared statement
         const sql = 'INSERT INTO person SET ?';
-        const values = { name, cpf, birthday, mother, email, email_valid, user_id };
+        const values = { name, cpf, birthday, mother, user_id };
         // Executar a consulta usando prepared statement
         const results = await pool.query(sql, values);
         res.json({ message: 'Dados cadastrados com sucesso!' });
@@ -166,16 +166,16 @@ router.post('/person/new', async (req, res) => {
 //Rota para atualizar uma pessoa
 router.put('/person/update/:id', validateNumericId, async (req, res) => {
     const { numericId } = req;
-    const { name, cpf: originalCpf, birthday, mother, email, email_valid, user_id } = req.body;
+    const { name, cpf: originalCpf, birthday, mother, user_id } = req.body;
     // Verificar se id do cadastro foi fornecido
     if (numericId === undefined || numericId === null) {
         return res.status(400).json({ message: 'O id do cadastro é obrigatório!' });
     }
     // Remover caracteres não numéricos do CPF
     const cpf = originalCpf.replace(/[^\d]/g, '');
-    const values = [name, cpf, birthday, mother, email, email_valid, user_id, numericId];
+    const values = [name, cpf, birthday, mother, user_id, numericId];
     // Chamar função para validar os campos
-    const validationError = validateFields({ name, cpf, birthday, mother, email, user_id });
+    const validationError = validateFields({ name, cpf, birthday, mother, user_id });
     if (validationError) {
         return res.status(400).json({ message: validationError });
     }
@@ -186,7 +186,7 @@ router.put('/person/update/:id', validateNumericId, async (req, res) => {
             return res.status(400).json({ message: 'Já existe uma pessoa cadastrada com esse CPF!' });
         }
         // Consulta SQL com prepared statement
-        const sql = 'UPDATE person SET name=?, cpf=?, birthday=?, mother=?, email=?, email_valid=?, user_id=? WHERE id=?';
+        const sql = 'UPDATE person SET name=?, cpf=?, birthday=?, mother=?, user_id=? WHERE id=?';
         // Executar a consulta usando prepared statement
         const [results] = await pool.query(sql, values);
         // Verificar se algum registro foi atualizado
