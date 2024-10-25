@@ -24,6 +24,7 @@ const DashboardLayout = ({ children }) => {
         transition: 'margin-left 0.3s ease-in-out',
         marginLeft: isCollapsed ? '0' : '60px',
         overflow: 'hidden',
+        overflowY: "auto",
         "::before": {
             content: '""',
             position: "absolute",
